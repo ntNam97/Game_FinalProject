@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f05c9d7482b726459d012e171e30f5f, type: 3}
+  m_Name: TutorialInvItem
+  m_EditorClassIdentifier: 
+  Name: TestInvItem
+  Description: This is a test item for the video
+  Icon: {fileID: 2800000, guid: 5152e465b80607d43b7e2fcd3634e3ef, type: 3}
+  Background: {fileID: 2800000, guid: 184411e5cbfcef94d90c27171a6135d6, type: 3}
+  ItemType: 3
+  ReloadSpeed: 0
+  FireRate: 0
+  MaxAmmo: 0
+  MagazineSize: 0
+  Range: 0

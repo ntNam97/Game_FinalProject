@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c76e0ad6e9c8b7f45b2b533ef2aa3b7d, type: 3}
+  m_Name: AmmoPack
+  m_EditorClassIdentifier: 
+  ItemName: AmmoPack
+  ItemType: A pack of 16 shells
+  InvTile: {fileID: 1374522175831222, guid: 01003e5b32d017743ae99bef6d791370, type: 2}
+  LootPickUp: {fileID: 1437085661174578, guid: 758c15ba72f90f849bfe011cb08d717d, type: 2}
+  ItemRarity: 0
+  Common: {r: 0.6764706, g: 0.6764706, b: 0.6764706, a: 0}
+  Uncommon: {r: 0, g: 1, b: 0.79310346, a: 0}
+  Rare: {r: 0.6722888, g: 0.08628891, b: 0.83823526, a: 0}
+  Epic: {r: 0.6691177, g: 0.65337384, b: 0.09839968, a: 0}
+  Legendary: {r: 0.44852942, g: 0.17149654, b: 0.41796026, a: 0}
+  Mythic: {r: 1, g: 1, b: 1, a: 0}
+  ItemAmmount: 16
+  isStackable: 0
+  PickUpButtonText: f

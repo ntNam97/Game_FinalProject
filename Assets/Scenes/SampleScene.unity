@@ -249,8 +249,7 @@ Prefab:
     - target: {fileID: 1516605088269270, guid: dba1cb9e81c1d3546bc94f02117eb5dc, type: 2}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 4134821183984644, guid: dba1cb9e81c1d3546bc94f02117eb5dc, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0.07466517
@@ -282,8 +281,7 @@ Prefab:
     - target: {fileID: 1962924387526070, guid: dba1cb9e81c1d3546bc94f02117eb5dc, type: 2}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 114912258691342600, guid: dba1cb9e81c1d3546bc94f02117eb5dc,
         type: 2}
       propertyPath: m_PlayerPrefab

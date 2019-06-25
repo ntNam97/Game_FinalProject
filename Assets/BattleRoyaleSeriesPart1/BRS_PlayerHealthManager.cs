@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//---------------------------------------------------------------------------------------------------
-//This script is provided as a part of The Polygon Pilgrimage
-//Subscribe to https://www.youtube.com/user/mentallic3d for more great tutorials and helpful scripts!
-//---------------------------------------------------------------------------------------------------
+
 public class BRS_PlayerHealthManager : MonoBehaviour
 {
 	[Header("---Player Health Parameters---")]

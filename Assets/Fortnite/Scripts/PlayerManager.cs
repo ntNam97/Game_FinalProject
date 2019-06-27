@@ -158,6 +158,13 @@ public class PlayerManager : NetworkBehaviour
 
     void Update()
     {
+        if(PauseMenu.IsOn)
+        {
+            gameObject.transform.GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled=false;
+        }else
+        {
+            gameObject.transform.GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
+        }
         if (!isLocalPlayer)
             return;
         if(Input.GetKeyDown(KeyCode.K))

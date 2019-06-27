@@ -28,6 +28,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        [SerializeField]
+        private float thrusterFuelBurnSpeed = 0.1f;
+        [SerializeField]
+        private float thrusterFuelRegenSpeed = 0.3f;
+        private float thrusterFuelAmount = 1f;
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -41,7 +47,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
-
+        public float getThrusterFuelAmount()
+        {
+            return thrusterFuelAmount;
+        }
         // Use this for initialization
         private void Start()
         {
@@ -62,6 +71,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
+            if(!m_IsWalking && thrusterFuelAmount>0f)
+            {
+                thrusterFuelAmount -= thrusterFuelBurnSpeed * Time.deltaTime*0.3f;
+                if (thrusterFuelAmount <= 0)
+                    m_RunSpeed = 4;
+            }
+            else
+            {
+                m_RunSpeed = 10;
+                thrusterFuelAmount += thrusterFuelRegenSpeed * Time.deltaTime;
+            }
+            thrusterFuelAmount = Mathf.Clamp(thrusterFuelAmount, 0f, 1f);
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
@@ -228,6 +249,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // only if the player is going to a run, is running and the fovkick is to be used
             if (m_IsWalking != waswalking && m_UseFovKick && m_CharacterController.velocity.sqrMagnitude > 0)
             {
+      
                 StopAllCoroutines();
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }

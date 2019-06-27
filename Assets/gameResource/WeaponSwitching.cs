@@ -5,13 +5,28 @@ using UnityEngine;
 
 public class WeaponSwitching : MonoBehaviour
 {
-    public int selectedWeapon = 0;
+    [SerializeField]
+    private int selectedWeapon = 0;
     private Animator WeaponAnim;
     private const float FREEZE = 10.0f;
     private const float EQUIP = 1.0f;
     private const float HOLSTER = 2.0f;
 
     private Animator PreAnim;
+
+    public int SelectedWeapon
+    {
+        get
+        {
+            return selectedWeapon;
+        }
+
+        set
+        {
+            selectedWeapon = value;
+        }
+    }
+
 
     // Use this for initialization
     void Start()
@@ -23,8 +38,8 @@ public class WeaponSwitching : MonoBehaviour
         //}
 
         // initialize weapon one
-        selectedWeapon = 0;
-        SelectWeapon(selectedWeapon, 0);
+        SelectedWeapon = 0;
+        SelectWeapon(SelectedWeapon, 0);
 
         StartCoroutine(AnimationWait(PreAnim));
     }
@@ -32,59 +47,59 @@ public class WeaponSwitching : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        int previousSelectedWeapon = selectedWeapon;
+        int previousSelectedWeapon = SelectedWeapon;
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
-            if (selectedWeapon >= transform.childCount - 1)
+            if (SelectedWeapon >= transform.childCount - 1)
             {
-                selectedWeapon = 0;
+                SelectedWeapon = 0;
             }
             else
             {
-                selectedWeapon++;
+                SelectedWeapon++;
             }
         }
 
         if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
-            if (selectedWeapon <= 0)
+            if (SelectedWeapon <= 0)
             {
-                selectedWeapon = transform.childCount - 1;
+                SelectedWeapon = transform.childCount - 1;
             }
             else
             {
-                selectedWeapon--;
+                SelectedWeapon--;
             }
         }
 
         if (Input.GetKeyDown("1"))
         {
-            selectedWeapon = 0;
+            SelectedWeapon = 0;
         }
 
         if (Input.GetKeyDown("2") && (transform.childCount >= 2))
         {
-            selectedWeapon = 1;
+            SelectedWeapon = 1;
         }
 
         if (Input.GetKeyDown("3") && (transform.childCount >= 3))
         {
-            selectedWeapon = 2;
+            SelectedWeapon = 2;
         }
 
         if (Input.GetKeyDown("4") && (transform.childCount >= 4))
         {
-            selectedWeapon = 3;
+            SelectedWeapon = 3;
         }
 
         if (Input.GetKeyDown("5") && (transform.childCount >= 5))
         {
-            selectedWeapon = 4;
+            SelectedWeapon = 4;
         }
 
-        if (previousSelectedWeapon != selectedWeapon)
+        if (previousSelectedWeapon != SelectedWeapon)
         {
-          SelectWeapon(selectedWeapon, previousSelectedWeapon);
+          SelectWeapon(SelectedWeapon, previousSelectedWeapon);
         }
 
     }
@@ -100,8 +115,8 @@ public class WeaponSwitching : MonoBehaviour
         PreAnim.SetFloat("WeaponState", HOLSTER);
 
         AnimationWait(PreAnim);
-
-        selectedWeapon = current;
+        (transform.GetChild(previous).gameObject).SetActive(false);
+        SelectedWeapon = current;
 
         //Bring out the new gun
         (transform.GetChild(current).gameObject).SetActive(true);

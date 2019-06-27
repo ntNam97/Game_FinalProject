@@ -37,8 +37,8 @@ public class BRS_ZoneDamage : MonoBehaviour
 	void Start ()
 	{
 		//Get a handle to the Player
-		player = GameObject.FindGameObjectWithTag ("Player");
-		CamPPB = GameObject.Find ("FirstPersonCharacter").GetComponent<PostProcessingBehaviour> ();
+		//player = GameObject.FindGameObjectWithTag ("Player");
+		CamPPB = player.GetComponentInChildren<PostProcessingBehaviour> ();
         playername = player.transform.name;
 
         //Get a handle to the Player Health Manager

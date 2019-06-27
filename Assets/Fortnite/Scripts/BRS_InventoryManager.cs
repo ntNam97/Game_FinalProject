@@ -35,13 +35,11 @@ public class BRS_InventoryManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        InventoryOverlay = GameObject.Find("ViewingInventory");
         InventoryOverlay.SetActive(false);
-        TPC = GameObject.FindGameObjectWithTag("Player");
         ItemInv = new InventoryItem[numSlots];
-        _BRS_Mechanics = GameObject.Find("BRS_Mechanics");
+ 
         //_UIM = GameObject.Find ("BRS_UI").GetComponent<BRS_UIManager> ();
-        InventoryUIArea = GameObject.Find("InvUI");
+       
         //ThirdPersonAnimator = TPC.GetComponent<Animator>();
         PlayerControlScript = TPC.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
         SlotCenters = InventoryUIArea.GetComponentsInChildren<Transform>();

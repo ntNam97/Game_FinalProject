@@ -32,7 +32,10 @@ public class BRS_PlayerHealthManager : MonoBehaviour
         healthText.text = startHealth.ToString();
 
     }
-
+    //public static float getCurrentHealth()
+    //{
+    //    return healthSlider.value;
+    //}
 	public void ChangeHealth(int changeAmount)
 	{
 		healthSlider.value += changeAmount;

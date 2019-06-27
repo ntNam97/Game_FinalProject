@@ -15,7 +15,7 @@ public class PlayerFire : NetworkBehaviour
     [SerializeField]
     private LayerMask mask;
 
-    private PlayerWeapon currentWeapon;
+    private PlayerWeapon currentWeapon=null;
     private WeaponManager weaponManager;
 
     void Start()
@@ -31,11 +31,15 @@ public class PlayerFire : NetworkBehaviour
     void Update()
     {
     
-        currentWeapon = weaponManager.CurrentWeapon;
+        currentWeapon = weaponManager.GetCurrentWeapon();
         if (weaponManager!= null)
             Debug.Log("weaponManager not null");
         else
             Debug.Log("weaponManager null");
+        if (currentWeapon != null)
+            Debug.Log("currentWeapon not null");
+        else
+            Debug.Log("currentWeapon null");
 
         if (currentWeapon.fireRate<=0f)
         {

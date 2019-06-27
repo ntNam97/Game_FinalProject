@@ -48,19 +48,41 @@ public class PlayerManager : NetworkBehaviour
 
     public GameObject _BRS_Mechanics;
     public BRS_PlayerHealthManager _PHM;
-
+    private bool firstSetup = true;
 
 
     void Start ()
     {
        
     }
-    public void Setup()
+    public void PlayerSetup()
     {
-        wasEnabled = new bool[disableOnDeath.Length];
-        for (int i = 0; i < wasEnabled.Length; i++)
+        if (isLocalPlayer)
         {
-            wasEnabled[i] = disableOnDeath[i].enabled;
+            GameManager.instance.setSceneCameraActive(false);
+            GetComponent<PlayerSetup>().playerUIInstance.SetActive(true);
+        }
+        
+        CmdBroadCastNewPlayerSetup();
+    }
+
+    [Command]
+    private void CmdBroadCastNewPlayerSetup()
+    {
+        RpcSetupPlayerOnAllClient();
+    }
+
+    [ClientRpc]
+    private void RpcSetupPlayerOnAllClient()
+    {
+        if (firstSetup)
+        {
+            wasEnabled = new bool[disableOnDeath.Length];
+            for (int i = 0; i < wasEnabled.Length; i++)
+            {
+                wasEnabled[i] = disableOnDeath[i].enabled;
+            }
+            firstSetup = false;
         }
         SetDefault();
     }
@@ -109,7 +131,11 @@ public class PlayerManager : NetworkBehaviour
         Transform _spawnPoint = NetworkManager.singleton.GetStartPosition();
         transform.position = _spawnPoint.position;
         transform.rotation = _spawnPoint.rotation;
-        SetDefault();
+
+        yield return new WaitForSeconds(0.1f);
+
+        PlayerSetup();
+  
         Debug.Log("Player respawn");
     }
     private void SetDefault()
@@ -124,11 +150,7 @@ public class PlayerManager : NetworkBehaviour
         {
             disableOnDeath[i].enabled = wasEnabled[i];
         }
-        if (isLocalPlayer)
-        {
-            GameManager.instance.setSceneCameraActive(false);
-            GetComponent<PlayerSetup>().playerUIInstance.SetActive(true);
-        }
+        
         GameObject _gfxIns = (GameObject)Instantiate(spawnEffect, GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.position, Quaternion.identity);
         Destroy(_gfxIns, 3f);
 

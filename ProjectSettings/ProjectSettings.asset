@@ -654,9 +654,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: c6f7c408-bea1-40dc-93eb-ea64665a7418
+  projectName: FinalProjectGameDev3D
+  organizationId: phtrungit
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

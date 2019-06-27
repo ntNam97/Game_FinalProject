@@ -19,6 +19,7 @@ public class PlayerSetup : NetworkBehaviour {
 
     [SerializeField]
     GameObject playerUIPrefab;
+    
     [HideInInspector]
     public GameObject playerUIInstance;
 	// Use this for initialization
@@ -36,13 +37,13 @@ public class PlayerSetup : NetworkBehaviour {
             GetComponentInChildren<AudioListener>().enabled = false;
             GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().GetComponentInChildren<Camera>().enabled = false;
             GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = false;
-            playerGraphics.layer = LayerMask.NameToLayer(dontDrawLayer);
+           
 
         }
         else
         {
-           
 
+            playerGraphics.layer = LayerMask.NameToLayer(dontDrawLayer);
             playerUIInstance = Instantiate(playerUIPrefab);
             playerUIInstance.name = playerUIPrefab.name;
 
@@ -52,8 +53,9 @@ public class PlayerSetup : NetworkBehaviour {
                 Debug.Log("No UI COMPONENT IN PREFAB");
             }
             ui.setPlayer(GetComponent<PlayerManager>());
+            GetComponent<PlayerManager>().PlayerSetup();
         }
-        GetComponent<PlayerManager>().Setup();
+       
        
         
 	}
@@ -70,7 +72,8 @@ public class PlayerSetup : NetworkBehaviour {
     void OnDisable()
     {
         Destroy(playerUIInstance);
-        GameManager.instance.setSceneCameraActive(true);
+        if(isLocalPlayer)
+            GameManager.instance.setSceneCameraActive(true);
         GameManager.UnregisterPlayer(GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().gameObject.transform.name);
     }
 	// Update is called once per frame

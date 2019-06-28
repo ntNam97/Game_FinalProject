@@ -133,7 +133,7 @@ public class PlayerManager : NetworkBehaviour
         {
             disableGameObjOnDeath[i].SetActive(false);
         }
-
+        
         GameObject _gfxIns=(GameObject) Instantiate(deathEffect, GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.position,Quaternion.identity);
         if(isLocalPlayer)
         {

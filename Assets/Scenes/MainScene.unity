@@ -517,8 +517,8 @@ MonoBehaviour:
   Segments: 64
   XRadius: 200
   YRadius: 200
-  ZoneRadiusFactor: 50
-  ZoneTimes: 050000000a000000f4010000
+  ZoneRadiusFactor: 20
+  ZoneTimes: 05000000050000000500000005000000050000000500000005000000050000000500000005000000
 --- !u!120 &1206806909
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 1208893896}
   - component: {fileID: 1208893895}
   m_Layer: 0
-  m_Name: NotPlayer
+  m_Name: WallCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

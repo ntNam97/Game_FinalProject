@@ -113,6 +113,7 @@ public class PlayerFire : NetworkBehaviour
         
         Animator anim = weaponHolder.GetComponentInChildren<Animator>();
         anim.SetBool("bFire", true);
+        GetComponent<AudioSource>().Play();
         currentWeapon.bullets--;
         CmdOnShoot();
         Debug.Log("Remaining bullets " + currentWeapon.bullets);
@@ -123,14 +124,14 @@ public class PlayerFire : NetworkBehaviour
             if (_hit.collider)
             {
                 Debug.Log("hit "+ _hit.collider.tag);
-                if (_hit.collider.tag == PLAYER_TAG && _hit.collider.name!= GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name)
+                if (_hit.collider.tag == PLAYER_TAG && _hit.collider.name!=GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name)
                 {
                     CmdPlayerShot(_hit.collider.name, currentWeapon.damage,GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name);
                     Debug.Log(GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name + " shoot " + _hit.collider.name);
                 }
             }
             // We hit something, call the OnHit method on the server
-            CmdOnHit(_hit.point, _hit.normal);
+            //CmdOnHit(_hit.point, _hit.normal);
         }
     }
 

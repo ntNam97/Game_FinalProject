@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.PostProcessing;
 
-public class BRS_ZoneDamage : MonoBehaviour
+public class BRS_ZoneDamage : NetworkBehaviour
 {
 	[Header("---Player Object---")]
 	//private GameObject gameManagerHolder;
@@ -80,7 +80,7 @@ public class BRS_ZoneDamage : MonoBehaviour
         }
         
 	}
-    
+  
 	void DamagePlayer()
 	{
         foreach (PlayerManager player in players)
@@ -88,7 +88,7 @@ public class BRS_ZoneDamage : MonoBehaviour
             if (!player.inZone)
             {
                 //Damage the player [TickDamage] amount
-                player.RpcTakeDamage(TickDamage, transform.name);
+                CmdDamagePlayer(TickDamage, player.GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name,transform.name);
                 Debug.Log(player.GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name + " out of zone -" + TickDamage + " health point");
                 //_PHM.ChangeHealth (-TickDamage);
             }
@@ -100,4 +100,11 @@ public class BRS_ZoneDamage : MonoBehaviour
         }
         
 	}
+
+    [Command]
+    void CmdDamagePlayer(int _amount,string _playerID, string _srcID)
+    {
+        PlayerManager player = GameManager.getPlayer(_playerID);
+        player.RpcTakeDamage(_amount, _srcID);
+    }
 }

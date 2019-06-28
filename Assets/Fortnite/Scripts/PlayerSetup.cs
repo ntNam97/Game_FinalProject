@@ -30,7 +30,7 @@ public class PlayerSetup : NetworkBehaviour {
             DisableComponents();
             gameObject.transform.Find("BRS_UI").GetComponentInChildren<Canvas>().enabled = false;
             gameObject.transform.Find("Canvas").GetComponent<Canvas>().enabled = false;
-            GetComponent<PlayerFire>().enabled = false;
+            //GetComponent<PlayerFire>().enabled = false;
             GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().GetComponentInChildren<AudioListener>().enabled = false;
             GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().GetComponentInChildren<WeaponSwitching>().enabled = false;
             Debug.Log("isNotLocal");

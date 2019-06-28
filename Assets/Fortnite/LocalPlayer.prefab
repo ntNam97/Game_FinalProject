@@ -265,7 +265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1467536421232450
 GameObject:
   m_ObjectHideFlags: 1
@@ -595,7 +595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1952732684051244
 GameObject:
   m_ObjectHideFlags: 1
@@ -1873,11 +1873,11 @@ MonoBehaviour:
     name: Glock
     damage: 10
     range: 100
-    fireRate: 0
+    fireRate: 5
     maxBullets: 30
     reloadTime: 1
     bullets: 0
-    graphics: {fileID: 1755001930630926, guid: ebd83b787ef6e0c4e90fb63e9810e08c, type: 2}
+    graphics: {fileID: 1447919534953360, guid: cb2b869c00f71e942921f156125cbd1a, type: 2}
 --- !u!114 &114691135213714686
 MonoBehaviour:
   m_ObjectHideFlags: 1

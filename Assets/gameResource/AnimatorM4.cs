@@ -12,15 +12,15 @@ public class AnimatorM4 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0))
-        {
+        //if (Input.GetMouseButtonDown(0))
+        //{
             
-            anim.SetBool("bFire", true);
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            anim.SetBool("bFire", false);
-        }
+        //    anim.SetBool("bFire", true);
+        //}
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    anim.SetBool("bFire", false);
+        //}
 
         if (Input.GetMouseButtonDown(1))
         {

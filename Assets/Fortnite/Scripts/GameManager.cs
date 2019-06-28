@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private GameObject sceneCamera;
 
+    public delegate void OnPlayerKilledCallback(string player, string source);
+    public OnPlayerKilledCallback onPlayerKilledCallback;
     void Awake()
     {
         if (instance!=null)
@@ -45,6 +48,10 @@ public class GameManager : MonoBehaviour {
         if (sceneCamera == null)
             return;
         sceneCamera.SetActive(isActive);
+    }
+    public static PlayerManager[] getAllPlayer()
+    {
+        return players.Values.ToArray();
     }
     // Use this for initialization
     //void OnGUI()

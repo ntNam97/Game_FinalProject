@@ -4,9 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using UnityEngine.PostProcessing;
+
 [RequireComponent(typeof(PlayerSetup))]
 public class PlayerManager : NetworkBehaviour
 {
+    public int kills;
+    public int deaths;
+    public bool inZone;
     [SyncVar]
     private bool _isDead = false;
     public bool isDead
@@ -38,6 +43,9 @@ public class PlayerManager : NetworkBehaviour
         return (float)currentHealth / maxHealth;
     }
 
+    [SyncVar]
+    public string username = "Loading...";
+
     [SerializeField]
     private Behaviour[] disableOnDeath;
 
@@ -50,10 +58,14 @@ public class PlayerManager : NetworkBehaviour
     public BRS_PlayerHealthManager _PHM;
     private bool firstSetup = true;
 
-
+    private PostProcessingBehaviour postProcessingBehaviour;
+    [Header("---Post Processing Objects---")]
+    public PostProcessingProfile outsideZonePPP;
+    public PostProcessingProfile standardPPP;
     void Start ()
     {
-       
+        postProcessingBehaviour = GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().GetComponentInChildren<PostProcessingBehaviour>();
+        
     }
     public void PlayerSetup()
     {
@@ -88,7 +100,7 @@ public class PlayerManager : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcTakeDamage(int _amount)
+    public void RpcTakeDamage(int _amount, string _sourcePlayerID)
     {
         if (isDead)
             return;
@@ -96,13 +108,22 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log(GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name + "has have " + currentHealth + " health point");
         if(currentHealth<=0)
         {
-            Die();
+            
+            Die(_sourcePlayerID);
         }
     }
-    private void Die()
+    private void Die(string _sourcePlayerID)
     {
         isDead = true;
-
+        PlayerManager _sourcePlayer = GameManager.getPlayer(_sourcePlayerID);
+        if(_sourcePlayer!=null)
+        {
+            _sourcePlayer.kills++;
+            GameManager.instance.onPlayerKilledCallback.Invoke(username, _sourcePlayer.username);
+           
+        }
+        
+        deaths++;
         for (int i = 0; i < disableOnDeath.Length; i++)
         {
             disableOnDeath[i].enabled = false;
@@ -158,18 +179,25 @@ public class PlayerManager : NetworkBehaviour
 
     void Update()
     {
-        if(PauseMenu.IsOn)
+        if (!isLocalPlayer)
+            return;
+        if (PauseMenu.IsOn)
         {
+           
             gameObject.transform.GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled=false;
         }else
         {
             gameObject.transform.GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().enabled = true;
         }
-        if (!isLocalPlayer)
-            return;
+        if(!inZone)
+        { postProcessingBehaviour.profile = outsideZonePPP; 
+        } else
+        {
+            postProcessingBehaviour.profile = standardPPP;
+        }
         if(Input.GetKeyDown(KeyCode.K))
         {
-            RpcTakeDamage(10);
+            RpcTakeDamage(10,transform.name);
         }
     }
 }

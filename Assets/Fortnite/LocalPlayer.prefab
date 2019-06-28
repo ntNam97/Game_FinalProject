@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 114690538326462002}
   - component: {fileID: 136698805637559544}
   - component: {fileID: 54729186453518354}
+  - component: {fileID: 114685538887658258}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -618,8 +619,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1530645547738114}
-  m_LocalRotation: {x: 0.27732298, y: -0.44718802, z: 0.14810088, w: 0.83736557}
-  m_LocalPosition: {x: 1150.0009, y: 167.25, z: 372.09796}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4711934536459898}
@@ -1382,6 +1383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e791cfb84713f2847891690be22cc7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  componentsToDisable:
+  - {fileID: 114685538887658258}
   remoteLayerName: RemotePlayer
   dontDrawLayer: DontDraw
   playerGraphics: {fileID: 1679871954683428}
@@ -1681,11 +1684,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 285d5dff2e6f6cf498479515a9426d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kills: 0
+  deaths: 0
+  inZone: 1
   maxHealth: 100
   deathEffect: {fileID: 1957686723208912, guid: d263515247ec3714597fa34944183177,
     type: 2}
   spawnEffect: {fileID: 1998983987702846, guid: 65f9db6ea19356f4687f9b3750d375a6,
     type: 2}
+  username: Loading...
   disableOnDeath:
   - {fileID: 114581927801120960}
   - {fileID: 114855509221850490}
@@ -1695,6 +1702,8 @@ MonoBehaviour:
   - {fileID: 1102480713455218}
   _BRS_Mechanics: {fileID: 1192908048713744}
   _PHM: {fileID: 0}
+  outsideZonePPP: {fileID: 11400000, guid: 2a0592b503d8fac468e24c6f4c3fc508, type: 2}
+  standardPPP: {fileID: 11400000, guid: 6ae27c86691ad2f419d8b99a7d942d90, type: 2}
 --- !u!114 &114528732320868254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1751,6 +1760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 867d7eded6855f14face94a6f4253a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolder: {fileID: 4181173263121348}
   weaponSwitching: {fileID: 0}
   cam: {fileID: 0}
   mask:
@@ -1835,6 +1845,17 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &114685538887658258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1530645547738114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee7841262f21764f82947450b1dfd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114690538326462002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1853,6 +1874,9 @@ MonoBehaviour:
     damage: 10
     range: 100
     fireRate: 0
+    maxBullets: 30
+    reloadTime: 1
+    bullets: 0
     graphics: {fileID: 1755001930630926, guid: ebd83b787ef6e0c4e90fb63e9810e08c, type: 2}
 --- !u!114 &114691135213714686
 MonoBehaviour:

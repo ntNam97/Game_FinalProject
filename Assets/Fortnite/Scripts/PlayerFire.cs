@@ -3,7 +3,8 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(WeaponManager))]
 public class PlayerFire : NetworkBehaviour
 {
-
+    [SerializeField]
+    private Transform weaponHolder;
     private const string PLAYER_TAG = "Player";
 
     [SerializeField]
@@ -30,8 +31,10 @@ public class PlayerFire : NetworkBehaviour
     }
     void Update()
     {
-    
+        
         currentWeapon = weaponManager.GetCurrentWeapon();
+        if (PauseMenu.IsOn)
+            return;
         if (weaponManager!= null)
             Debug.Log("weaponManager not null");
         else
@@ -43,10 +46,20 @@ public class PlayerFire : NetworkBehaviour
 
         if (currentWeapon.fireRate<=0f)
         {
+            Animator anim = weaponHolder.GetComponentInChildren<Animator>();
             if (Input.GetButtonDown("Fire1"))
             {
                 Shoot();
+              
             }
+            if (Input.GetButtonUp("Fire1"))
+            {
+               
+                anim.SetBool("bFire", false);
+            }
+
+
+
         }
         else
         {
@@ -64,6 +77,20 @@ public class PlayerFire : NetworkBehaviour
     [Client]
     void Shoot()
     {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
+        if(currentWeapon.bullets<=0)
+        {
+            //weaponManager.Reload();
+            Debug.Log("out of bullets");
+            return;
+        }
+        Animator anim = weaponHolder.GetComponentInChildren<Animator>();
+        anim.SetBool("bFire", true);
+        currentWeapon.bullets--;
+        Debug.Log("Remaining bullets " + currentWeapon.bullets);
         Debug.Log("SHOOT");
         RaycastHit _hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out _hit, currentWeapon.range, mask))
@@ -73,7 +100,8 @@ public class PlayerFire : NetworkBehaviour
                 Debug.Log("hit "+ _hit.collider.tag);
                 if (_hit.collider.tag == PLAYER_TAG)
                 {
-                    CmdPlayerShot(_hit.collider.name, currentWeapon.damage);
+                    CmdPlayerShot(_hit.collider.name, currentWeapon.damage,GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name);
+                    Debug.Log(GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().transform.name + " shoot " + _hit.collider.name);
                 }
             }
 
@@ -83,11 +111,11 @@ public class PlayerFire : NetworkBehaviour
     }
 
     [Command]
-    void CmdPlayerShot(string _playerID,int _dmg)
+    void CmdPlayerShot(string _playerID,int _dmg,string _sourceID)
     {
         Debug.Log(_playerID + " has been shot");
         PlayerManager player = GameManager.getPlayer(_playerID);
-        player.RpcTakeDamage(_dmg);
+        player.RpcTakeDamage(_dmg,_sourceID);
     }
 
 }

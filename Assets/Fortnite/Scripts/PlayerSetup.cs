@@ -6,7 +6,8 @@ using UnityEngine.Networking;
 [RequireComponent(typeof(PlayerManager))]
 [RequireComponent(typeof(UnityStandardAssets.Characters.FirstPerson.FirstPersonController))]
 public class PlayerSetup : NetworkBehaviour {
-   
+    [SerializeField]
+    Behaviour[] componentsToDisable;
 
     [SerializeField]
     string remoteLayerName = "RemotePlayer";
@@ -26,6 +27,7 @@ public class PlayerSetup : NetworkBehaviour {
 	void Start () {
 		if(!isLocalPlayer)
         {
+            DisableComponents();
             gameObject.transform.Find("BRS_UI").GetComponentInChildren<Canvas>().enabled = false;
             gameObject.transform.Find("Canvas").GetComponent<Canvas>().enabled = false;
             GetComponent<PlayerFire>().enabled = false;
@@ -54,11 +56,26 @@ public class PlayerSetup : NetworkBehaviour {
             }
             ui.setPlayer(GetComponent<PlayerManager>());
             GetComponent<PlayerManager>().PlayerSetup();
+            string _username = "Loading...";
+            if (UserAccountManager.IsLoggedIn)
+                _username = UserAccountManager.LoggedIn_Username;
+            else
+                _username = GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().gameObject.transform.name;
+            CmdSetUsername(GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().gameObject.transform.name, _username);
         }
-       
-       
-        
+
 	}
+
+    [Command]
+    void CmdSetUsername(string _playerID, string _username)
+    {
+        PlayerManager player = GameManager.getPlayer(_playerID);
+        if(player!=null)
+        {
+            Debug.Log(_username + " has joined");
+            player.username = _username;
+        }
+    }
 
     public override void OnStartClient()
     {
@@ -79,5 +96,12 @@ public class PlayerSetup : NetworkBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+    }
+    void DisableComponents()
+    {
+        for (int i = 0; i < componentsToDisable.Length; i++)
+        {
+            componentsToDisable[i].enabled = false;
+        }
     }
 }

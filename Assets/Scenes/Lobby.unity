@@ -333,7 +333,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1710441431}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.7494671
+  m_Size: 0.74947196
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -903,7 +903,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
